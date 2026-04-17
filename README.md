@@ -10,6 +10,8 @@ Versao atual: `v1.0.0`
 - Integracao principal alinhada ao contrato usado pelo projeto, com adaptacoes operacionais ja aplicadas sobre a linha da `API V5.3`.
 - Fluxos com suporte local de contingencia, incluindo cache e fila offline para partes criticas da operacao.
 - Historico de versoes documentado em `CHANGELOG.md`.
+- Padrao de contribuicao descrito em `CONTRIBUTING.md`.
+- Guia para replicacao do padrao nos outros modulos em `PADRAO_REPOSITORIO_MODULOS.md`.
 
 ## Execucao rapida
 
