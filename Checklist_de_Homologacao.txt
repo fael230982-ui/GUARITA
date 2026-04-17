@@ -1,0 +1,98 @@
+﻿Checklist de Homologação
+
+Use esta ordem no aparelho, de preferência em turno real ou simulado.
+
+1. Login - OK
+
+- Entrar com usuário válido.
+- Confirmar se e-mail salvo reaparece corretamente.
+- Verificar se teclado não cobre os campos.
+- Testar erro de e-mail inválido, senha vazia e usuário sem acesso.
+
+2. Movimento - OK COM OBSERVAÇÃO
+
+- Abrir a tela inicial e conferir atualização.
+- Validar contadores, previsões, chegadas e últimos acessos.
+- Testar busca por pessoa com nome, documento e unidade.
+- Confirmar se os atalhos para Encomendas e Face abrem no contexto certo. (NÃO É FACE E SIM PESSOAS)
+
+3. Encomendas - OK COM OBSERVAÇÃO
+
+- Receber encomenda por OCR.
+- Conferir se unidade, destinatário, transportadora e rastreio vêm bem sugeridos.
+- Validar se a conferência ficou clara sem rolagem excessiva.
+- Testar recebimento manual.
+- Testar consulta por unidade.
+- Testar Reenviar notificação.
+- Testar retirada por:
+    - código
+    - QR
+    - confirmação manual
+- Confirmar se os textos da retirada estão claros para o operador.
+// UMA OBSERVAÇÃO QUANTO AO DETALHES DAS ENCOMENDAS RETIRADAS AO CLICAR PRECISA TER QUEM RETIROU, acho que esquecemos de ver isso
+
+4. Pessoas e Face PENDENTE - nada mudou
+
+- Buscar pessoa existente. OK
+- Buscar pessoa via face - não localiza a pessoa ou informa "Busca por foto" imagem excede o limite de resolução permitido
+- Cadastrar nova pessoa.  PENDENTE 
+- Testar obrigatoriedade de nome, unidade do morador, documento, telefone e e-mail inválido.
+- Ler documento por OCR. (não tem opção de ler documento no app) - ainda sem essa opção
+- Registrar face. (OK) 
+- Confirmar se consentimento, foto e seleção da pessoa estão claros. (não consegui localizar)
+// AO TENTAR CADASTRAR UM NOVO USUARIO APÓS ROLAR A TELA PARA PREENCHER OS DEMAIS CAMPOS, A TELA SOBE SOZINHA COM FOCO PRINCIPAL NO NOME ATRAPALHANDO A USABILIDADE - ainda permanece
+//AO TENTAR CADASTRAR A PESSOA DEU ERRO "FALHA AO CADASTRAS A PESSOA" "SERVIÇO TEMPORARIAMENTE INDISPONIVEL" - mudou ´so o tipo de mensage
+// TENTEI A MESMA PESSOA E AGORA INSERI DATA DE NASCIMENTO, MAS ESSE CAMPO NÃO PODE SER OBRIGATORIO PRINCIPALMENTE PARA PRESTADORES E VISITANTES, E MESMO APÓS PREENCHER RETORNOU COM ERRO "SERVIÇO TEMPORARIAMENTE INDISPONIVEL"
+
+5. Histórico (seria acessos?) não consegui testar essa tela pois estava tudo sem registros 
+
+- Conferir filtro, busca e leitura de status.
+- Validar distinção entre:
+    - pronta para retirada
+    - pendente de sincronização
+    - sem dados de retirada
+    - finalizada
+- Confirmar se resumo de turno está útil.
+
+6. Alertas
+// esse modulo não existe em Guarita
+
+
+7. Offline e retomada - PENDENTE
+
+- Desligar internet e tentar:
+    - cadastrar encomenda
+    - cadastrar pessoa
+    - cadastrar face
+    - atualizar visita
+- Reabrir internet.
+// em encomendas OCR DA ERRO "network request failed"
+// EM PESSOSAS DA ERRO EM BUSCA SÓ EM CLICAR "NETWORK"
+
+
+
+8. Sessão e perfil - OK COM OBSERVAÇÕES, NÃO TENHO PERFILS ZELADOR PARA TESTAR 
+
+- Testar com perfis diferentes:
+    - porteiro - OK
+    - zelador - MESMO QUE PORTEIRO
+    - admin - NAO CONSEGUI TESTAR O EXPO GO PAROU DE FUNCIONAR
+- MORADOR - NÃO PERMITIU LOGAR - OK
+ - Confirmar o que fica bloqueado ou só consulta.
+
+
+
+Como me devolver o teste
+
+- ok: o que passou
+- falhou: o que quebrou
+- confuso: o que funcionou, mas ficou ruim de usar
+- se possível: tela + ação + mensagem exibida
+
+Exemplo:
+
+- falhou - Encomendas - retirada por QR - câmera abre e fecha sozinha
+- confuso - Pessoa - unidade do morador - não ficou claro por que bloqueou
+- ok - Login e Movimento
+
+Quando você começar a me mandar os resultados, eu vou corrigindo item por item.

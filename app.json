@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Guarita",
+    "slug": "guarita",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "guarita",
+    "splash": {
+      "backgroundColor": "#F7F9F8"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.v8seguranca.guarita",
+      "infoPlist": {
+        "NSCameraUsageDescription": "O Guarita usa a camera para registrar etiquetas, volumes e fotos faciais autorizadas."
+      }
+    },
+    "android": {
+      "package": "com.v8seguranca.guarita",
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "O Guarita usa a camera para registrar etiquetas, volumes e fotos faciais autorizadas."
+        }
+      ]
+    ]
+  }
+}

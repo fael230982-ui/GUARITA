@@ -1,0 +1,30 @@
+{
+  "build": {
+    "rafiels-android": {
+      "env": {
+        "EXPO_PUBLIC_BRAND_PROFILE": "rafiels"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "rafiels-ios": {
+      "env": {
+        "EXPO_PUBLIC_BRAND_PROFILE": "rafiels"
+      }
+    },
+    "cliente-a-android": {
+      "env": {
+        "EXPO_PUBLIC_BRAND_PROFILE": "cliente-a"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "cliente-a-ios": {
+      "env": {
+        "EXPO_PUBLIC_BRAND_PROFILE": "cliente-a"
+      }
+    }
+  }
+}
