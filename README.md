@@ -9,6 +9,7 @@ Versao atual: `v1.0.0`
 - Base funcional publicada no GitHub com historico inicial versionado.
 - Integracao principal alinhada ao contrato usado pelo projeto, com adaptacoes operacionais ja aplicadas sobre a linha da `API V5.3`.
 - Fluxos com suporte local de contingencia, incluindo cache e fila offline para partes criticas da operacao.
+- Historico de versoes documentado em `CHANGELOG.md`.
 
 ## Execucao rapida
 
