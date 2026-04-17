@@ -1,6 +1,31 @@
 # Guarita
 
-App Expo separado do app morador para operacao de portaria, alinhado com a linha operacional ate a API V5.2, com API V5.3 sinalizada e pendente de integracao explicita neste repositorio.
+Aplicativo Expo para operacao de portaria, separado do app morador e preparado para fluxos de pessoas, encomendas, movimento e acesso operacional.
+
+Versao atual: `v1.0.0`
+
+## Estado atual
+
+- Base funcional publicada no GitHub com historico inicial versionado.
+- Integracao principal alinhada ao contrato usado pelo projeto, com adaptacoes operacionais ja aplicadas sobre a linha da `API V5.3`.
+- Fluxos com suporte local de contingencia, incluindo cache e fila offline para partes criticas da operacao.
+
+## Execucao rapida
+
+Configure a URL base em `.env`:
+
+```text
+EXPO_PUBLIC_API_URL=https://sapinhoprod.v8seguranca.com.br/api/v1
+```
+
+Instale e rode:
+
+```bash
+npm install
+npm run start
+```
+
+Depois abra pelo Expo Go no celular.
 
 ## Autoria
 
@@ -64,12 +89,6 @@ App Expo separado do app morador para operacao de portaria, alinhado com a linha
 
 ## Backend esperado
 
-Configure a URL base em `.env`:
-
-```text
-EXPO_PUBLIC_API_URL=https://sapinhoprod.v8seguranca.com.br/api/v1
-```
-
 Endpoints usados:
 
 ```text
@@ -123,12 +142,3 @@ Observacoes:
 - A conciliacao do `Historico` agora evita remover cedo demais um item local quando a API ainda nao devolveu prova suficiente de que ele ja foi absorvido pelo sistema.
 - Antes de reenviar uma encomenda offline, o app agora consulta `clientRequestId` no reconcile da V4.6 para reduzir risco de duplicidade apos retomada de conexao.
 - A API V5.3 ainda nao foi incorporada nesta documentacao. Quando o contrato novo estiver disponivel no workspace, os endpoints e campos acima devem ser revisados contra a versao nova.
-
-## Rodar
-
-```bash
-npm install
-npm run start
-```
-
-Depois abra pelo Expo Go no celular.
