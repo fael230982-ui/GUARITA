@@ -5,6 +5,9 @@
   DeliveryDraft,
   DeliveryLabelOcrResult,
   FaceResponse,
+  OperationMessage,
+  OperationMessageDirection,
+  OperationMessageOrigin,
   PermissionMatrixItem,
   PersonAccessSummary,
   PersonDocumentOcrSuggestion,
@@ -18,7 +21,8 @@
   SyncCapabilities,
   Unit,
   UnitResidentOption,
-  VisitForecast
+  VisitForecast,
+  WhatsAppConnection
 } from "../types";
 
 const DEFAULT_API_URL = process.env.EXPO_PUBLIC_API_URL ?? "https://sapinhoprod.v8seguranca.com.br/api/v1";
@@ -64,6 +68,43 @@ type PublicUnitResidentOptionResponse = {
   name: string;
   unitId: string;
   unitName?: string | null;
+};
+
+type PublicOperationMessageResponse = {
+  id: string;
+  unitId: string;
+  unitName?: string | null;
+  senderUserId?: string | null;
+  senderUserName?: string | null;
+  recipientPersonId?: string | null;
+  recipientPersonName?: string | null;
+  recipientPhone?: string | null;
+  direction: OperationMessageDirection;
+  origin: OperationMessageOrigin;
+  body: string;
+  status: string;
+  externalMessageId?: string | null;
+  externalMetadata?: Record<string, unknown> | null;
+  readAt?: string | null;
+  createdAt: string;
+};
+
+type PublicOperationMessageCreateRequest = {
+  unitId: string;
+  body: string;
+  recipientPersonId?: string | null;
+  recipientPhone?: string | null;
+  origin?: OperationMessageOrigin;
+  direction?: OperationMessageDirection;
+};
+
+type PublicWhatsAppConnectionResponse = {
+  enabled: boolean;
+  instance?: string | null;
+  state?: string | null;
+  qrCodeText?: string | null;
+  qrCodeImageDataUrl?: string | null;
+  pairingCode?: string | null;
 };
 
 type PublicSyncReconciliationResponse = {
@@ -361,6 +402,8 @@ export class ApiClient {
       condominiumIds: mapped.condominiumIds,
       unitId: mapped.unitId,
       unitIds: mapped.unitIds,
+      unitName: mapped.unitName,
+      unitNames: mapped.unitNames,
       selectedUnitId: mapped.selectedUnitId,
       selectedUnitName: mapped.selectedUnitName,
       requiresUnitSelection: mapped.requiresUnitSelection,
@@ -805,6 +848,69 @@ export class ApiClient {
     return this.request<Unit[]>("/units");
   }
 
+  async listMessages(unitId: string, options: { limit?: number; unreadOnly?: boolean } = {}): Promise<OperationMessage[]> {
+    const query = new URLSearchParams();
+    query.set("unitId", unitId);
+    query.set("limit", String(options.limit ?? 50));
+    if (options.unreadOnly) {
+      query.set("unreadOnly", "true");
+    }
+
+    const result = await this.request<PublicOperationMessageResponse[]>(`/messages?${query.toString()}`);
+    return result.map(mapOperationMessage);
+  }
+
+  async createMessage(input: {
+    unitId: string;
+    body: string;
+    recipientPersonId?: string | null;
+    recipientPhone?: string | null;
+    origin?: OperationMessageOrigin;
+    direction?: OperationMessageDirection;
+  }): Promise<OperationMessage> {
+    const payload: PublicOperationMessageCreateRequest = {
+      unitId: input.unitId,
+      body: input.body.trim(),
+      recipientPersonId: input.recipientPersonId ?? null,
+      recipientPhone: input.recipientPhone ?? null,
+      origin: input.origin ?? "PORTARIA",
+      direction: input.direction ?? "PORTARIA_TO_RESIDENT"
+    };
+
+    const result = await this.request<PublicOperationMessageResponse>("/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    return mapOperationMessage(result);
+  }
+
+  async markMessageRead(id: string): Promise<OperationMessage> {
+    const result = await this.request<PublicOperationMessageResponse>(`/messages/${encodeURIComponent(id)}/read`, {
+      method: "PATCH"
+    });
+
+    return mapOperationMessage(result);
+  }
+
+  async getWhatsAppConnection(unitId: string): Promise<WhatsAppConnection> {
+    const result = await this.request<PublicWhatsAppConnectionResponse>(
+      `/messages/whatsapp/connection?unitId=${encodeURIComponent(unitId)}`
+    );
+
+    return mapWhatsAppConnection(result);
+  }
+
+  async connectWhatsApp(unitId: string): Promise<WhatsAppConnection> {
+    const result = await this.request<PublicWhatsAppConnectionResponse>(
+      `/messages/whatsapp/connect?unitId=${encodeURIComponent(unitId)}`,
+      { method: "POST" }
+    );
+
+    return mapWhatsAppConnection(result);
+  }
+
   async searchUnits(query: string, limit = 20): Promise<Unit[]> {
     return this.request<Unit[]>(`/operation/units?q=${encodeURIComponent(query)}&limit=${limit}`);
   }
@@ -1049,6 +1155,8 @@ function mapUserToSession(user: PublicUserResponse, token: string): AuthSession 
     condominiumIds: user.condominiumIds ?? [],
     unitId: user.unitId ?? null,
     unitIds: user.unitIds ?? [],
+    unitName: user.unitName ?? null,
+    unitNames: user.unitNames ?? [],
     selectedUnitId: user.selectedUnitId ?? null,
     selectedUnitName: user.selectedUnitName ?? null,
     requiresUnitSelection: user.requiresUnitSelection ?? false,
@@ -1218,6 +1326,38 @@ function normalizeBirthDateForApi(value: string | undefined) {
     parsed.getUTCDate() === day;
 
   return isSameDate ? normalized : undefined;
+}
+
+function mapOperationMessage(item: PublicOperationMessageResponse): OperationMessage {
+  return {
+    id: item.id,
+    unitId: item.unitId,
+    unitName: item.unitName ?? null,
+    senderUserId: item.senderUserId ?? null,
+    senderUserName: item.senderUserName ?? null,
+    recipientPersonId: item.recipientPersonId ?? null,
+    recipientPersonName: item.recipientPersonName ?? null,
+    recipientPhone: item.recipientPhone ?? null,
+    direction: item.direction,
+    origin: item.origin,
+    body: item.body,
+    status: item.status,
+    externalMessageId: item.externalMessageId ?? null,
+    externalMetadata: item.externalMetadata ?? null,
+    readAt: item.readAt ?? null,
+    createdAt: item.createdAt
+  };
+}
+
+function mapWhatsAppConnection(item: PublicWhatsAppConnectionResponse): WhatsAppConnection {
+  return {
+    enabled: item.enabled,
+    instance: item.instance ?? null,
+    state: item.state ?? null,
+    qrCodeText: item.qrCodeText ?? null,
+    qrCodeImageDataUrl: item.qrCodeImageDataUrl ?? null,
+    pairingCode: item.pairingCode ?? null
+  };
 }
 
 

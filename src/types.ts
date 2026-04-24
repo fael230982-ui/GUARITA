@@ -13,6 +13,8 @@ export type AuthSession = {
   condominiumIds?: string[];
   unitId?: string | null;
   unitIds?: string[];
+  unitName?: string | null;
+  unitNames?: string[];
   selectedUnitId?: string | null;
   selectedUnitName?: string | null;
   requiresUnitSelection?: boolean;
@@ -125,6 +127,37 @@ export type UnitResidentOption = {
   name: string;
   unitId: string;
   unitName?: string | null;
+};
+
+export type OperationMessageOrigin = "APP" | "WHATSAPP" | "PORTARIA" | string;
+export type OperationMessageDirection = "PORTARIA_TO_RESIDENT" | "RESIDENT_TO_PORTARIA" | string;
+
+export type OperationMessage = {
+  id: string;
+  unitId: string;
+  unitName?: string | null;
+  senderUserId?: string | null;
+  senderUserName?: string | null;
+  recipientPersonId?: string | null;
+  recipientPersonName?: string | null;
+  recipientPhone?: string | null;
+  direction: OperationMessageDirection;
+  origin: OperationMessageOrigin;
+  body: string;
+  status: string;
+  externalMessageId?: string | null;
+  externalMetadata?: Record<string, unknown> | null;
+  readAt?: string | null;
+  createdAt: string;
+};
+
+export type WhatsAppConnection = {
+  enabled: boolean;
+  instance?: string | null;
+  state?: string | null;
+  qrCodeText?: string | null;
+  qrCodeImageDataUrl?: string | null;
+  pairingCode?: string | null;
 };
 
 export type Unit = {

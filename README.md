@@ -7,7 +7,7 @@ Versao atual: `v1.0.0`
 ## Estado atual
 
 - Base funcional publicada no GitHub com historico inicial versionado.
-- Integracao principal alinhada ao contrato usado pelo projeto, com adaptacoes operacionais ja aplicadas sobre a linha da `API V5.3`.
+- Integracao principal alinhada ao contrato usado pelo projeto, com adaptacoes operacionais ja aplicadas sobre a linha da `API V6.1`.
 - Fluxos com suporte local de contingencia, incluindo cache e fila offline para partes criticas da operacao.
 - Historico de versoes documentado em `CHANGELOG.md`.
 - Padrao de contribuicao descrito em `CONTRIBUTING.md`.
@@ -54,6 +54,8 @@ Depois abra pelo Expo Go no celular.
 
 - Login do operador com validacao de perfil operacional.
 - Painel de movimento com visitas previstas, visitantes que chegaram e ultimos acessos.
+- Modulo de mensagens com historico por unidade, envio operacional e conexao de WhatsApp por QR.
+- Se o operador receber varias unidades em `auth/me`, o modulo de mensagens permite escolher a unidade ativa.
 - Registro de chegada/saida de visita prevista pelo painel de movimento.
 - Nova encomenda com foto do volume, conferencia manual e envio para a API.
 - Busca operacional de unidades por texto com `GET /api/v1/operation/units`.
@@ -104,6 +106,11 @@ GET /api/v1/condominiums/{id}
 GET /api/v1/visit-forecasts
 PATCH /api/v1/visit-forecasts/{id}/status
 GET /api/v1/access-logs
+GET /api/v1/messages?unitId=<uuid>&limit=<n>
+POST /api/v1/messages
+PATCH /api/v1/messages/{id}/read
+GET /api/v1/messages/whatsapp/connection?unitId=<uuid>
+POST /api/v1/messages/whatsapp/connect?unitId=<uuid>
 GET /api/v1/units
 GET /api/v1/operation/units?q=<texto>&limit=<n>
 POST /api/v1/people
@@ -132,6 +139,10 @@ Observacoes:
 - O fluxo de `Encomendas` usa `people/unit-residents` como caminho canonico para destinatarios da unidade.
 - O fluxo de `Pessoas` ja usa OCR documental para sugerir nome, documento, tipo e data de nascimento antes do cadastro manual.
 - O stream operacional e usado como acelerador de atualizacao. Se o runtime nao suportar SSE por `fetch`, o app continua funcional com cache, fila offline e atualizacao manual.
+- O fluxo de mensagens usa `unitId` como escopo obrigatorio. Quando a sessao nao trouxer unidade selecionada, o modulo fica apenas informativo.
+- Quando `auth/me` trouxer `unitIds` e `unitNames`, o app usa esses dados para operar mensagens por unidade.
+- O envio via WhatsApp usa `POST /api/v1/messages` com `origin=WHATSAPP`, exigindo `recipientPersonId` ou `recipientPhone`.
+- A conexao do WhatsApp usa polling de `GET /api/v1/messages/whatsapp/connection` ate a instancia ficar aberta.
 - O app trata `eventType` e `occurredAt` como campos canonicos do stream e mantem `type`, `timestamp` e `eventTime` apenas como compatibilidade temporaria.
 - A leitura do stream ja considera `entityType` e `entityId` como obrigatorios e usa os campos ricos estabilizados, como `title`, `body`, `snapshotUrl`, `liveUrl`, `replayUrl`, `replayAvailable`, `secondsBefore` e `secondsAfter`.
 - O cliente ja consome `GET /api/v1/auth/sync-capabilities` e `GET /api/v1/auth/stream-capabilities`, com cache local e parser do stream orientado pelas capacidades canonicas publicadas pelo backend.

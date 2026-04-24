@@ -20,6 +20,7 @@ export const brandingProfiles = {
         deliveries: "Encomendas",
         accesses: "Acessos",
         people: "Pessoas",
+        messages: "Mensagens",
         receiveDelivery: "Recebendo encomenda",
         deliverDelivery: "Entregando encomenda",
         deliveryQuery: "Consulta",
@@ -30,6 +31,7 @@ export const brandingProfiles = {
         deliveries: true,
         people: true,
         accesses: true,
+        messages: true,
         deliveryOcr: true,
         deliveryManualEntry: true
       },
@@ -67,6 +69,7 @@ export const brandingProfiles = {
         deliveries: "Entregas",
         accesses: "Movimento",
         people: "Cadastros",
+        messages: "Mensagens",
         receiveDelivery: "Receber entrega",
         deliverDelivery: "Entregar",
         deliveryQuery: "Consultar",
@@ -77,6 +80,7 @@ export const brandingProfiles = {
         deliveries: true,
         people: true,
         accesses: true,
+        messages: true,
         deliveryOcr: true,
         deliveryManualEntry: true
       },

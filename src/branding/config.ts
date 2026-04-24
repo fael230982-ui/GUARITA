@@ -12,6 +12,7 @@ export type BrandingConfig = {
     deliveries: string;
     accesses: string;
     people: string;
+    messages: string;
     receiveDelivery: string;
     deliverDelivery: string;
     deliveryQuery: string;
@@ -22,6 +23,7 @@ export type BrandingConfig = {
     deliveries: boolean;
     people: boolean;
     accesses: boolean;
+    messages: boolean;
     deliveryOcr: boolean;
     deliveryManualEntry: boolean;
   };
@@ -77,6 +79,7 @@ export const branding: BrandingConfig = {
     deliveries: readEnv("EXPO_PUBLIC_BRAND_LABEL_DELIVERIES", profileDefaults.labels.deliveries),
     accesses: readEnv("EXPO_PUBLIC_BRAND_LABEL_ACCESSES", profileDefaults.labels.accesses),
     people: readEnv("EXPO_PUBLIC_BRAND_LABEL_PEOPLE", profileDefaults.labels.people),
+    messages: readEnv("EXPO_PUBLIC_BRAND_LABEL_MESSAGES", profileDefaults.labels.messages),
     receiveDelivery: readEnv("EXPO_PUBLIC_BRAND_LABEL_RECEIVE_DELIVERY", profileDefaults.labels.receiveDelivery),
     deliverDelivery: readEnv("EXPO_PUBLIC_BRAND_LABEL_DELIVER_DELIVERY", profileDefaults.labels.deliverDelivery),
     deliveryQuery: readEnv("EXPO_PUBLIC_BRAND_LABEL_DELIVERY_QUERY", profileDefaults.labels.deliveryQuery),
@@ -87,6 +90,7 @@ export const branding: BrandingConfig = {
     deliveries: readBoolEnv("EXPO_PUBLIC_FEATURE_DELIVERIES", profileDefaults.features.deliveries),
     people: readBoolEnv("EXPO_PUBLIC_FEATURE_PEOPLE", profileDefaults.features.people),
     accesses: readBoolEnv("EXPO_PUBLIC_FEATURE_ACCESSES", profileDefaults.features.accesses),
+    messages: readBoolEnv("EXPO_PUBLIC_FEATURE_MESSAGES", profileDefaults.features.messages),
     deliveryOcr: readBoolEnv("EXPO_PUBLIC_FEATURE_DELIVERY_OCR", profileDefaults.features.deliveryOcr),
     deliveryManualEntry: readBoolEnv("EXPO_PUBLIC_FEATURE_DELIVERY_MANUAL_ENTRY", profileDefaults.features.deliveryManualEntry)
   },

@@ -28,18 +28,20 @@ import { DeliveryScreen } from "./src/screens/DeliveryScreen";
 import { FaceScreen } from "./src/screens/FaceScreen";
 import { HistoryScreen } from "./src/screens/HistoryScreen";
 import { LoginScreen } from "./src/screens/LoginScreen";
+import { MessagesScreen } from "./src/screens/MessagesScreen";
 import { MovementScreen } from "./src/screens/MovementScreen";
 import { OperationEventsStatus, setOperationEventsCapabilities, startOperationEvents, stopOperationEvents, subscribeOperationEventsStatus } from "./src/utils/operationEvents";
 import { canManageDeliveries, canManageFaces, setPermissionsMatrix } from "./src/utils/permissions";
 import { isUnitSelectionPending, sessionScopeLabel } from "./src/utils/sessionScope";
 
-type Tab = "movement" | "delivery" | "history" | "face";
+type Tab = "movement" | "delivery" | "history" | "face" | "messages";
 
 const tabs: Array<{ id: Tab; label: string; icon: keyof typeof Ionicons.glyphMap }> = [
   { id: "movement", label: branding.labels.home, icon: "home-outline" },
   { id: "delivery", label: branding.labels.deliveries, icon: "cube-outline" },
   { id: "history", label: branding.labels.accesses, icon: "swap-horizontal-outline" },
-  { id: "face", label: branding.labels.people, icon: "people-outline" }
+  { id: "face", label: branding.labels.people, icon: "people-outline" },
+  { id: "messages", label: branding.labels.messages, icon: "chatbubbles-outline" }
 ];
 
 export default function App() {
@@ -69,6 +71,7 @@ export default function App() {
       if (tab.id === "delivery") return branding.features.deliveries && canManageDeliveries(session) && isOperationalModuleEnabled(session, "deliveries");
       if (tab.id === "face") return branding.features.people && canManageFaces(session) && isOperationalModuleEnabled(session, "people");
       if (tab.id === "history") return branding.features.accesses && isOperationalModuleEnabled(session, "accesses");
+      if (tab.id === "messages") return branding.features.messages && isOperationalModuleEnabled(session, "messages");
       return true;
     });
   }, [session]);
@@ -87,7 +90,8 @@ export default function App() {
       movement: branding.labels.home,
       delivery: branding.labels.deliveries,
       history: branding.labels.accesses,
-      face: branding.labels.people
+      face: branding.labels.people,
+      messages: branding.labels.messages
     };
 
     return labels[activeTab];
@@ -490,6 +494,12 @@ export default function App() {
                   onDraftStateChange={setHasFaceDraft}
                 />
               ) : null}
+              {activeTab === "messages" ? (
+                <MessagesScreen
+                  session={session}
+                  isActive={activeTab === "messages"}
+                />
+              ) : null}
             </View>
 
             <View style={styles.tabBar}>
@@ -868,7 +878,8 @@ function tabBarLabel(tab: Tab) {
     movement: branding.labels.home,
     delivery: branding.labels.deliveries,
     history: branding.labels.accesses,
-    face: branding.labels.people
+    face: branding.labels.people,
+    messages: branding.labels.messages
   };
 
   return labels[tab];
@@ -879,7 +890,8 @@ function tabPageTitle(tab: Tab) {
     movement: branding.labels.home,
     delivery: branding.labels.deliveries,
     history: branding.labels.accesses,
-    face: branding.labels.people
+    face: branding.labels.people,
+    messages: branding.labels.messages
   };
 
   return labels[tab];
@@ -971,7 +983,7 @@ function buildSessionWithConfig(
 
 function isOperationalModuleEnabled(
   session: AuthSession,
-  module: "deliveries" | "people" | "accesses"
+  module: "deliveries" | "people" | "accesses" | "messages"
 ) {
   const enabledModules = session.enabledModules ?? [];
   if (!enabledModules.length) {
@@ -981,7 +993,8 @@ function isOperationalModuleEnabled(
   const aliases: Record<typeof module, string[]> = {
     deliveries: ["DELIVERIES", "DELIVERY", "PACKAGES", "ENCOMENDAS"],
     people: ["PEOPLE", "PERSON", "PERSONS", "RESIDENTS", "FACES", "FACIAL", "USERS"],
-    accesses: ["ACCESS", "ACCESSES", "ACCESS_CONTROL", "VISITS", "VISIT_FORECASTS", "OPERATIONS", "PORTARIA", "GUARITA"]
+    accesses: ["ACCESS", "ACCESSES", "ACCESS_CONTROL", "VISITS", "VISIT_FORECASTS", "OPERATIONS", "PORTARIA", "GUARITA"],
+    messages: ["MESSAGES", "MESSAGE", "CHAT", "CHATS", "WHATSAPP", "COMMUNICATION", "COMMUNICATIONS"]
   };
 
   const normalized = enabledModules.map((item) => item.trim().toUpperCase());

@@ -20,3 +20,16 @@ O formato segue o padrão de "Keep a Changelog" e o versionamento adotado no rep
 
 - Apresentação do repositório no `README.md` para publicação inicial.
 - Regras do `.gitignore` para ignorar artefatos locais e arquivos temporários do ambiente Expo.
+
+## [unreleased]
+
+### Adicionado
+
+- Módulo de mensagens por unidade no app `Guarita`.
+- Conexão de WhatsApp por QR com polling de status da instância.
+- Envio operacional de mensagens com `origin=WHATSAPP`.
+
+### Alterado
+
+- Documentação do `README.md` alinhada à `API V6.1`.
+- Módulo de mensagens ajustado para operar com `unitIds` e `unitNames` retornados por `auth/me`.
