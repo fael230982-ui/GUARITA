@@ -7,13 +7,14 @@ Versao atual: `v1.0.0`
 ## Estado atual
 
 - Base funcional publicada no GitHub com historico inicial versionado.
-- Integracao principal alinhada ao contrato usado pelo projeto, com adaptacoes operacionais aplicadas ate a linha util da `API V6.1` e revisoes de impacto feitas contra as APIs `V6.3` e `V6.5`.
+- Integracao principal alinhada ao contrato usado pelo projeto, com adaptacoes operacionais aplicadas ate a linha util da `API V6.1` e revisoes de impacto feitas contra as APIs `V6.3`, `V6.5` e `V6.6`.
 - Fluxos com suporte local de contingencia, incluindo cache e fila offline para partes criticas da operacao.
 - Historico de versoes documentado em `CHANGELOG.md`.
 - Padrao de contribuicao descrito em `CONTRIBUTING.md`.
 - Guia para replicacao do padrao nos outros modulos em `PADRAO_REPOSITORIO_MODULOS.md`.
 - Analise de impacto da `API V6.3` documentada em `GUARITA_POS_API_V6_3_2026-04-27.md`.
 - Analise de impacto da `API V6.5` documentada em `GUARITA_POS_API_V6_5_2026-04-27.md`.
+- Analise de impacto da `API V6.6` documentada em `GUARITA_POS_API_V6_6_2026-04-27.md`.
 
 ## Execucao rapida
 

@@ -36,3 +36,4 @@ O formato segue o padrão de "Keep a Changelog" e o versionamento adotado no rep
 - Revisão de impacto da `API V6.3` registrada para manter alinhamento com a pasta compartilhada.
 - Revisão de impacto da `API V6.5` registrada.
 - Configuração `eas.json` adicionada para build interno de homologação.
+- Revisão de impacto da `API V6.6` registrada, sem mudança funcional obrigatória no app.
