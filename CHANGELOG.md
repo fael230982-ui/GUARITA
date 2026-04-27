@@ -33,3 +33,4 @@ O formato segue o padrão de "Keep a Changelog" e o versionamento adotado no rep
 
 - Documentação do `README.md` alinhada à `API V6.1`.
 - Módulo de mensagens ajustado para operar com `unitIds` e `unitNames` retornados por `auth/me`.
+- Revisão de impacto da `API V6.3` registrada para manter alinhamento com a pasta compartilhada.
